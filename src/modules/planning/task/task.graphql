@@ -1,0 +1,23 @@
+type Query {
+  getTasks: [Task]
+}
+
+type Mutation {
+  noteTask(noteTaskInput: NoteTaskInput!): Task
+}
+
+type Task {
+  taskId: String!
+  description: String!
+  createdAt: String!
+  isTickedOff: Boolean!
+  tickedOffAt: String
+  resumedAt: String!
+  editedAt: String
+  isArchived: Boolean!
+  archivedAt: String
+}
+
+input NoteTaskInput {
+  text: String!
+}

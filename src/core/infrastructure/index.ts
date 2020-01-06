@@ -1,0 +1,1 @@
+export { IRepository } from './IRepository';
