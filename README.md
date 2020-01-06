@@ -1,4 +1,4 @@
-# test-nests-ddd
+# test-nestjs-ddd
 
 Test to apply Domain Driven Design principles to a NestJS application.
 
