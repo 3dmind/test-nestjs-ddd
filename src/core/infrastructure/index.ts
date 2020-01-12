@@ -1,2 +1,2 @@
 export { BaseResolver } from './BaseResolver';
-export { IRepository } from './IRepository';
+export { Repository } from './Repository';
