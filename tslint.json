@@ -16,7 +16,8 @@
     "object-literal-sort-keys": false,
     "variable-name": {
       "options": ["check-format", "allow-leading-underscore"]
-    }
+    },
+    "no-namespace": false
   },
   "rulesDirectory": []
 }

@@ -9,7 +9,7 @@ export class TaskMapper {
   public toDomain(taskModel: TaskModel): TaskEntity {
     return TaskEntity.create(
       {
-        description: TaskDescription.create(taskModel.description),
+        description: TaskDescription.create(taskModel.description).value,
         createdAt: taskModel.createdAt,
         editedAt: taskModel.editedAt,
         tickedOff: taskModel.isTickedOff,
