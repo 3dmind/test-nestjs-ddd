@@ -14,7 +14,7 @@ lerna-debug.log*
 .DS_Store
 
 # Database
-/data
+/data/*.sqlite
 
 # Tests
 /coverage
