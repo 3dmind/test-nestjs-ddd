@@ -1,2 +1,2 @@
-export { GetAllTasksUseCase } from './getAllTasks/GetAllTasksUseCase';
-export { NoteTaskUseCase } from './noteTask/NoteTaskUseCase';
+export { GetAllTasksUseCase } from './getAllTasks.useCase';
+export { NoteTaskUseCase } from './noteTask.useCase';

@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { UseCase } from '../../../../../core/domain';
-import { Either, eitherLeft, eitherRight, GenericAppError, Result } from '../../../../../core/logic';
-import { TaskEntity } from '../../domain';
-import { TaskRepository } from '../../task.repository';
+import { UseCase } from '../../../../core/domain';
+import {
+  Either,
+  eitherLeft,
+  eitherRight,
+  GenericAppError,
+  Result,
+} from '../../../../core/logic';
+import { TaskEntity } from '../domain';
+import { TaskRepository } from '../task.repository';
 
 type Response = Either<GenericAppError.UnexpectedError, Result<TaskEntity[]>>;
 

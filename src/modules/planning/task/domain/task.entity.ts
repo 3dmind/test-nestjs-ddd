@@ -1,5 +1,5 @@
 import { Entity, UniqueEntityID } from '../../../../core/domain';
-import { TaskDescription } from './TaskDescription.value';
+import { TaskDescription } from './taskDescription.value';
 
 interface TaskEntityProps {
   description: TaskDescription;

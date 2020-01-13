@@ -1,2 +1,2 @@
-export { TaskEntity } from './Task.entity';
-export { TaskDescription } from './TaskDescription.value';
+export { TaskEntity } from './task.entity';
+export { TaskDescription } from './taskDescription.value';
