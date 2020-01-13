@@ -7,6 +7,7 @@ import { TaskModule } from '../planning/task/task.module';
     TaskModule,
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
+      debug: false,
     }),
   ],
 })

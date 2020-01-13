@@ -23,7 +23,7 @@ export class Task {
     createdAt: string;
     isTickedOff: boolean;
     tickedOffAt?: string;
-    resumedAt: string;
+    resumedAt?: string;
     editedAt?: string;
     isArchived: boolean;
     archivedAt?: string;

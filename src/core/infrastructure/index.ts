@@ -1,1 +1,2 @@
-export { IRepository } from './IRepository';
+export { BaseResolver } from './BaseResolver';
+export { Repository } from './Repository';
