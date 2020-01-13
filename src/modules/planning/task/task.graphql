@@ -1,12 +1,12 @@
 type Query {
-  getTasks: [Task]
+  tasks: [TaskDTO]
 }
 
 type Mutation {
-  noteTask(noteTaskInput: NoteTaskInput!): Task
+  noteTask(input: NoteTaskDTO!): TaskDTO
 }
 
-type Task {
+type TaskDTO {
   taskId: String!
   description: String!
   createdAt: String!
@@ -18,6 +18,6 @@ type Task {
   archivedAt: String
 }
 
-input NoteTaskInput {
+input NoteTaskDTO {
   text: String!
 }

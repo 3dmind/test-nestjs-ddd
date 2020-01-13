@@ -5,19 +5,19 @@
  */
 
 /* tslint:disable */
-export class NoteTaskInput {
+export class NoteTaskDTO {
     text: string;
 }
 
 export abstract class IMutation {
-    abstract noteTask(noteTaskInput: NoteTaskInput): Task | Promise<Task>;
+    abstract noteTask(input: NoteTaskDTO): TaskDTO | Promise<TaskDTO>;
 }
 
 export abstract class IQuery {
-    abstract getTasks(): Task[] | Promise<Task[]>;
+    abstract tasks(): TaskDTO[] | Promise<TaskDTO[]>;
 }
 
-export class Task {
+export class TaskDTO {
     taskId: string;
     description: string;
     createdAt: string;
