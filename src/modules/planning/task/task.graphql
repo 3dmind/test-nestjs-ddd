@@ -12,7 +12,7 @@ type Task {
   createdAt: String!
   isTickedOff: Boolean!
   tickedOffAt: String
-  resumedAt: String!
+  resumedAt: String
   editedAt: String
   isArchived: Boolean!
   archivedAt: String
