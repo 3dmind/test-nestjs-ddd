@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../core/infrastructure';
 import { GenericAppError } from '../../../core/logic';
-import { NoteTaskInput, Task } from '../../../graphql.schema';
+import { NoteTaskDTO, TaskDTO } from '../../../graphql.schema';
 import { TaskMapper } from './task.mapper';
 import { GetAllTasksUseCase, NoteTaskUseCase } from './useCases';
 
@@ -15,8 +15,8 @@ export class TaskResolver extends BaseResolver {
     super();
   }
 
-  @Query('getTasks')
-  async getTasks(): Promise<Task[]> {
+  @Query()
+  async tasks(): Promise<TaskDTO[]> {
     const response = await this.getAllTasksUseCase.execute();
     if (response.isLeft()) {
       const result = response.result;
@@ -30,8 +30,8 @@ export class TaskResolver extends BaseResolver {
     }
   }
 
-  @Mutation('noteTask')
-  async noteTask(@Args('noteTaskInput') args: NoteTaskInput): Promise<Task> {
+  @Mutation()
+  async noteTask(@Args('input') args: NoteTaskDTO): Promise<TaskDTO> {
     const response = await this.noteTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;

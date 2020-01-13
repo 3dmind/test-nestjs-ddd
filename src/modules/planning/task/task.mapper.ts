@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from '../../../core/domain';
-import { Task } from '../../../graphql.schema';
+import { TaskDTO } from '../../../graphql.schema';
 import { TaskDescription, TaskEntity } from './domain';
 import { TaskModel } from './task.model';
 
@@ -24,7 +24,7 @@ export class TaskMapper {
     );
   }
 
-  public toDTO(taskEntity: TaskEntity): Task {
+  public toDTO(taskEntity: TaskEntity): TaskDTO {
     return {
       taskId: taskEntity.id.value,
       description: taskEntity.description.value,

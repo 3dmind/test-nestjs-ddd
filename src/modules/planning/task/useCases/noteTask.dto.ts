@@ -1,3 +1,1 @@
-import { NoteTaskInput } from '../../../../graphql.schema';
-
-export type NoteTaskDTO = NoteTaskInput;
+export { NoteTaskDTO } from '../../../../graphql.schema';
