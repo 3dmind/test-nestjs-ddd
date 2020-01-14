@@ -8,7 +8,7 @@ import {
   Result,
 } from '../../../../core/logic';
 import { EditTaskDTO } from '../../../../graphql.schema';
-import { TaskDescription, TaskEntity } from '../domain';
+import { TaskDescription, TaskEntity, TaskId } from '../domain';
 import { TaskRepository } from '../task.repository';
 import { EditTaskErrors } from './editTask.errors';
 
@@ -24,7 +24,7 @@ export class EditTaskUseCase implements UseCase<EditTaskDTO, Response> {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   public async execute(dto: EditTaskDTO): Promise<Response> {
-    const taskId = UniqueEntityID.create(dto.taskId);
+    const taskId = TaskId.create(UniqueEntityID.create(dto.taskId));
     try {
       const [found, taskEntity] = await this.taskRepository.findByTaskId(
         taskId,

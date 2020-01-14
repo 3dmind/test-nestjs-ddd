@@ -1,12 +1,12 @@
-import { UniqueEntityID } from '../../../../core/domain';
 import { Result } from '../../../../core/logic';
 import { UseCaseError } from '../../../../core/logic/UseCaseError';
+import { TaskId } from '../domain';
 
 export namespace EditTaskErrors {
   export class TaskDoesNotExist extends Result<UseCaseError> {
-    constructor(taskId: UniqueEntityID) {
+    constructor(taskId: TaskId) {
       super(false, {
-        message: `The task with ID ${taskId.value} does not exist.`,
+        message: `The task with ID ${taskId.id.value} does not exist.`,
       });
     }
   }
