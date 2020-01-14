@@ -24,14 +24,15 @@ export class TaskRepository implements ITaskRepository {
 
   public async save(taskEntity: TaskEntity): Promise<TaskEntity> {
     const exists = await this.exists(taskEntity);
-    const taskModelInstance = this.taskMapper.toPersistence(taskEntity);
+    const taskModel = this.taskMapper.toPersistence(taskEntity);
     if (!exists) {
-      taskModelInstance.save();
+      await taskModel.save();
     } else {
-      await this.taskModel.update(taskModelInstance, {
+      await this.taskModel.update(taskModel.toJSON(), {
         where: { taskId: taskEntity.id.value },
       });
     }
+    // TODO: Return entity only on success.
     return taskEntity;
   }
 
