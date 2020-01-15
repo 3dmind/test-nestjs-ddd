@@ -5,6 +5,7 @@ type Query {
 type Mutation {
   noteTask(input: NoteTaskDTO!): TaskDTO
   editTask(input: EditTaskDTO!): TaskDTO
+  tickOffTask(input: TickOffTaskDTO): TaskDTO
 }
 
 type TaskDTO {
@@ -26,4 +27,8 @@ input NoteTaskDTO {
 input EditTaskDTO {
   taskId: String!
   text: String!
+}
+
+input TickOffTaskDTO {
+  taskId: String!
 }
