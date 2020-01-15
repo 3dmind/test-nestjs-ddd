@@ -1,5 +1,6 @@
 import { Entity, UniqueEntityID } from '../../../../core/domain';
 import { TaskDescription } from './taskDescription.value';
+import { TaskId } from './taskId.entity';
 
 interface TaskEntityProps {
   description: TaskDescription;
@@ -21,6 +22,10 @@ export class TaskEntity extends Entity<TaskEntityProps> {
 
   get id(): UniqueEntityID {
     return this._id;
+  }
+
+  get taskId(): TaskId {
+    return TaskId.create(this.id);
   }
 
   get description(): TaskDescription {
@@ -58,9 +63,7 @@ export class TaskEntity extends Entity<TaskEntityProps> {
     return new TaskEntity(props, id);
   }
 
-  public static note(
-    description: TaskDescription,
-  ): TaskEntity {
+  public static note(description: TaskDescription): TaskEntity {
     return TaskEntity.create({
       createdAt: new Date(),
       description,

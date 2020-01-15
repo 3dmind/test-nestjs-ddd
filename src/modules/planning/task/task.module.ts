@@ -4,11 +4,14 @@ import { TaskMapper } from './task.mapper';
 import { taskProviders } from './task.providers';
 import { TaskRepository } from './task.repository';
 import { TaskResolver } from './task.resolver';
-import { GetAllTasksUseCase, NoteTaskUseCase } from './useCases';
+import { EditTaskUseCase } from './useCases/editTask.useCase';
+import { GetAllTasksUseCase } from './useCases/getAllTasks.useCase';
+import { NoteTaskUseCase } from './useCases/noteTask.useCase';
 
 @Module({
   imports: [DatabaseModule],
   providers: [
+    EditTaskUseCase,
     GetAllTasksUseCase,
     NoteTaskUseCase,
     TaskResolver,
