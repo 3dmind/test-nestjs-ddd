@@ -1,6 +1,6 @@
-import { Result } from '../../../../core/logic';
-import { UseCaseError } from '../../../../core/logic/UseCaseError';
-import { TaskId } from '../domain';
+import { Result } from '../../../../../core/logic';
+import { UseCaseError } from '../../../../../core/logic/UseCaseError';
+import { TaskId } from '../../domain';
 
 export namespace TickOffTaskErrors {
   export class TaskDoesNotExist extends Result<UseCaseError> {

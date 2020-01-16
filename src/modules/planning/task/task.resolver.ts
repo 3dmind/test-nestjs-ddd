@@ -1,19 +1,20 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../core/infrastructure';
 import { GenericAppError } from '../../../core/logic';
+import { TaskMapper } from './task.mapper';
+import { NoteTaskDTO, NoteTaskUseCase } from './useCases/noteTask';
+import { GetAllTasksUseCase } from './useCases/getAllTasks';
 import {
   EditTaskDTO,
-  NoteTaskDTO,
-  TaskDTO,
+  EditTaskErrors,
+  EditTaskUseCase,
+} from './useCases/editTask';
+import {
   TickOffTaskDTO,
-} from '../../../graphql.schema';
-import { TaskMapper } from './task.mapper';
-import { EditTaskUseCase } from './useCases/editTask.useCase';
-import { EditTaskErrors } from './useCases/editTask.errors';
-import { GetAllTasksUseCase } from './useCases/getAllTasks.useCase';
-import { NoteTaskUseCase } from './useCases/noteTask.useCase';
-import { TickOffTaskUseCase } from './useCases/tickOffTask.useCase';
-import { TickOffTaskErrors } from './useCases/tickOffTask.errors';
+  TickOffTaskErrors,
+  TickOffTaskUseCase,
+} from './useCases/tickOffTask';
+import { TaskDTO } from './task.dto';
 
 @Resolver('Task')
 export class TaskResolver extends BaseResolver {

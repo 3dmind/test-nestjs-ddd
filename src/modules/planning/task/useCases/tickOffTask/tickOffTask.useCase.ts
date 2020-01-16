@@ -1,15 +1,15 @@
-import { UniqueEntityID, UseCase } from '../../../../core/domain';
-import { TickOffTaskDTO } from '../../../../graphql.schema';
+import { Injectable } from '@nestjs/common';
+import { UniqueEntityID, UseCase } from '../../../../../core/domain';
 import {
   Either,
   eitherLeft,
   eitherRight,
   GenericAppError,
   Result,
-} from '../../../../core/logic';
-import { TaskEntity, TaskId } from '../domain';
-import { Injectable } from '@nestjs/common';
-import { TaskRepository } from '../task.repository';
+} from '../../../../../core/logic';
+import { TaskEntity, TaskId } from '../../domain';
+import { TaskRepository } from '../../task.repository';
+import { TickOffTaskDTO } from './tickOffTask.dto';
 import { TickOffTaskErrors } from './tickOffTask.errors';
 
 type Response = Either<

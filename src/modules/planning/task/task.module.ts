@@ -4,10 +4,10 @@ import { TaskMapper } from './task.mapper';
 import { taskProviders } from './task.providers';
 import { TaskRepository } from './task.repository';
 import { TaskResolver } from './task.resolver';
-import { EditTaskUseCase } from './useCases/editTask.useCase';
-import { GetAllTasksUseCase } from './useCases/getAllTasks.useCase';
-import { NoteTaskUseCase } from './useCases/noteTask.useCase';
-import { TickOffTaskUseCase } from './useCases/tickOffTask.useCase';
+import { EditTaskUseCase } from './useCases/editTask';
+import { GetAllTasksUseCase } from './useCases/getAllTasks';
+import { NoteTaskUseCase } from './useCases/noteTask';
+import { TickOffTaskUseCase } from './useCases/tickOffTask';
 
 @Module({
   imports: [DatabaseModule],

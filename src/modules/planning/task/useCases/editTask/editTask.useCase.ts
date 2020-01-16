@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { UniqueEntityID, UseCase } from '../../../../core/domain';
+import { UniqueEntityID, UseCase } from '../../../../../core/domain';
 import {
   Either,
   eitherLeft,
   eitherRight,
   GenericAppError,
   Result,
-} from '../../../../core/logic';
-import { EditTaskDTO } from '../../../../graphql.schema';
-import { TaskDescription, TaskEntity, TaskId } from '../domain';
-import { TaskRepository } from '../task.repository';
+} from '../../../../../core/logic';
+import { TaskDescription, TaskEntity, TaskId } from '../../domain';
+import { TaskRepository } from '../../task.repository';
+import { EditTaskDTO } from './editTask.dto';
 import { EditTaskErrors } from './editTask.errors';
 
 type Response = Either<
