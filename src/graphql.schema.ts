@@ -14,6 +14,10 @@ export class NoteTaskDTO {
     text: string;
 }
 
+export class ResumeTaskDTO {
+    taskId: string;
+}
+
 export class TickOffTaskDTO {
     taskId: string;
 }
@@ -24,6 +28,8 @@ export abstract class IMutation {
     abstract editTask(input: EditTaskDTO): TaskDTO | Promise<TaskDTO>;
 
     abstract tickOffTask(input?: TickOffTaskDTO): TaskDTO | Promise<TaskDTO>;
+
+    abstract resumeTask(input?: ResumeTaskDTO): TaskDTO | Promise<TaskDTO>;
 }
 
 export abstract class IQuery {

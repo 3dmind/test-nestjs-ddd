@@ -1,19 +1,25 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../core/infrastructure';
 import { GenericAppError } from '../../../core/logic';
+import { TaskDTO } from './task.dto';
+import { TaskMapper } from './task.mapper';
 import {
   EditTaskDTO,
-  NoteTaskDTO,
-  TaskDTO,
+  EditTaskErrors,
+  EditTaskUseCase,
+} from './useCases/editTask';
+import { GetAllTasksUseCase } from './useCases/getAllTasks';
+import { NoteTaskDTO, NoteTaskUseCase } from './useCases/noteTask';
+import {
+  ResumeTaskDTO,
+  ResumeTaskErrors,
+  ResumeTaskUseCase,
+} from './useCases/resumeTask';
+import {
   TickOffTaskDTO,
-} from '../../../graphql.schema';
-import { TaskMapper } from './task.mapper';
-import { EditTaskUseCase } from './useCases/editTask.useCase';
-import { EditTaskErrors } from './useCases/editTask.errors';
-import { GetAllTasksUseCase } from './useCases/getAllTasks.useCase';
-import { NoteTaskUseCase } from './useCases/noteTask.useCase';
-import { TickOffTaskUseCase } from './useCases/tickOffTask.useCase';
-import { TickOffTaskErrors } from './useCases/tickOffTask.errors';
+  TickOffTaskErrors,
+  TickOffTaskUseCase,
+} from './useCases/tickOffTask';
 
 @Resolver('Task')
 export class TaskResolver extends BaseResolver {
@@ -23,6 +29,7 @@ export class TaskResolver extends BaseResolver {
     private readonly getAllTasksUseCase: GetAllTasksUseCase,
     private readonly editTaskUseCase: EditTaskUseCase,
     private readonly tickOffTaskUseCase: TickOffTaskUseCase,
+    private readonly resumeTaskUseCase: ResumeTaskUseCase,
   ) {
     super();
   }
@@ -84,6 +91,24 @@ export class TaskResolver extends BaseResolver {
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof TickOffTaskErrors.TaskDoesNotExist) {
+        this.fail(result.error.message);
+      }
+      if (result instanceof GenericAppError.UnexpectedError) {
+        this.fail(result.error.message);
+      }
+    }
+
+    if (response.isRight()) {
+      return this.taskMapper.toDTO(response.result.value);
+    }
+  }
+
+  @Mutation()
+  async resumeTask(@Args('input') args: ResumeTaskDTO): Promise<TaskDTO> {
+    const response = await this.resumeTaskUseCase.execute(args);
+    if (response.isLeft()) {
+      const result = response.result;
+      if (result instanceof ResumeTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
       if (result instanceof GenericAppError.UnexpectedError) {
