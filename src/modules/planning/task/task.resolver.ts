@@ -1,20 +1,25 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../core/infrastructure';
 import { GenericAppError } from '../../../core/logic';
+import { TaskDTO } from './task.dto';
 import { TaskMapper } from './task.mapper';
-import { NoteTaskDTO, NoteTaskUseCase } from './useCases/noteTask';
-import { GetAllTasksUseCase } from './useCases/getAllTasks';
 import {
   EditTaskDTO,
   EditTaskErrors,
   EditTaskUseCase,
 } from './useCases/editTask';
+import { GetAllTasksUseCase } from './useCases/getAllTasks';
+import { NoteTaskDTO, NoteTaskUseCase } from './useCases/noteTask';
+import {
+  ResumeTaskDTO,
+  ResumeTaskErrors,
+  ResumeTaskUseCase,
+} from './useCases/resumeTask';
 import {
   TickOffTaskDTO,
   TickOffTaskErrors,
   TickOffTaskUseCase,
 } from './useCases/tickOffTask';
-import { TaskDTO } from './task.dto';
 
 @Resolver('Task')
 export class TaskResolver extends BaseResolver {
@@ -24,6 +29,7 @@ export class TaskResolver extends BaseResolver {
     private readonly getAllTasksUseCase: GetAllTasksUseCase,
     private readonly editTaskUseCase: EditTaskUseCase,
     private readonly tickOffTaskUseCase: TickOffTaskUseCase,
+    private readonly resumeTaskUseCase: ResumeTaskUseCase,
   ) {
     super();
   }
@@ -85,6 +91,24 @@ export class TaskResolver extends BaseResolver {
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof TickOffTaskErrors.TaskDoesNotExist) {
+        this.fail(result.error.message);
+      }
+      if (result instanceof GenericAppError.UnexpectedError) {
+        this.fail(result.error.message);
+      }
+    }
+
+    if (response.isRight()) {
+      return this.taskMapper.toDTO(response.result.value);
+    }
+  }
+
+  @Mutation()
+  async resumeTask(@Args('input') args: ResumeTaskDTO): Promise<TaskDTO> {
+    const response = await this.resumeTaskUseCase.execute(args);
+    if (response.isLeft()) {
+      const result = response.result;
+      if (result instanceof ResumeTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
       if (result instanceof GenericAppError.UnexpectedError) {

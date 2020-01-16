@@ -4,8 +4,12 @@ type Query {
 
 type Mutation {
   noteTask(input: NoteTaskDTO!): TaskDTO
+
   editTask(input: EditTaskDTO!): TaskDTO
+
   tickOffTask(input: TickOffTaskDTO): TaskDTO
+
+  resumeTask(input: ResumeTaskDTO): TaskDTO
 }
 
 type TaskDTO {
@@ -30,5 +34,9 @@ input EditTaskDTO {
 }
 
 input TickOffTaskDTO {
+  taskId: String!
+}
+
+input ResumeTaskDTO {
   taskId: String!
 }

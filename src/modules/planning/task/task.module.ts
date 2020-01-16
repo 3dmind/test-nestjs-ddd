@@ -8,6 +8,7 @@ import { EditTaskUseCase } from './useCases/editTask';
 import { GetAllTasksUseCase } from './useCases/getAllTasks';
 import { NoteTaskUseCase } from './useCases/noteTask';
 import { TickOffTaskUseCase } from './useCases/tickOffTask';
+import { ResumeTaskUseCase } from './useCases/resumeTask';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,6 +17,7 @@ import { TickOffTaskUseCase } from './useCases/tickOffTask';
     GetAllTasksUseCase,
     NoteTaskUseCase,
     TickOffTaskUseCase,
+    ResumeTaskUseCase,
     TaskResolver,
     TaskMapper,
     TaskRepository,
