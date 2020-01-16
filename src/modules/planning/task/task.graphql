@@ -10,6 +10,8 @@ type Mutation {
   tickOffTask(input: TickOffTaskDTO): TaskDTO
 
   resumeTask(input: ResumeTaskDTO): TaskDTO
+
+  discardTask(input: DiscardTaskDTO): TaskDTO
 }
 
 type TaskDTO {
@@ -22,6 +24,8 @@ type TaskDTO {
   editedAt: String
   isArchived: Boolean!
   archivedAt: String
+  isDiscarded: Boolean!
+  discardedAt: String
 }
 
 input NoteTaskDTO {
@@ -38,5 +42,9 @@ input TickOffTaskDTO {
 }
 
 input ResumeTaskDTO {
+  taskId: String!
+}
+
+input DiscardTaskDTO {
   taskId: String!
 }

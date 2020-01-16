@@ -35,6 +35,8 @@ export class TaskMapper {
       resumedAt: taskEntity.resumedAt?.toISOString(),
       isArchived: taskEntity.isArchived(),
       archivedAt: taskEntity.archivedAt?.toISOString(),
+      isDiscarded: taskEntity.isDiscarded(),
+      discardedAt: taskEntity.discardedAt?.toISOString(),
     };
   }
 

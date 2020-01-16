@@ -1,27 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../../database/database.module';
-import { TaskMapper } from './task.mapper';
 import { taskProviders } from './task.providers';
-import { TaskRepository } from './task.repository';
-import { TaskResolver } from './task.resolver';
-import { EditTaskUseCase } from './useCases/editTask';
-import { GetAllTasksUseCase } from './useCases/getAllTasks';
-import { NoteTaskUseCase } from './useCases/noteTask';
-import { TickOffTaskUseCase } from './useCases/tickOffTask';
-import { ResumeTaskUseCase } from './useCases/resumeTask';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [
-    EditTaskUseCase,
-    GetAllTasksUseCase,
-    NoteTaskUseCase,
-    TickOffTaskUseCase,
-    ResumeTaskUseCase,
-    TaskResolver,
-    TaskMapper,
-    TaskRepository,
-    ...taskProviders,
-  ],
+  providers: [...taskProviders],
 })
 export class TaskModule {}
