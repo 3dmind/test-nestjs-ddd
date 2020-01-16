@@ -1,0 +1,55 @@
+query Tasks {
+  tasks {
+    taskId
+    description
+    createdAt
+    editedAt
+    isTickedOff
+    tickedOffAt
+    resumedAt
+    isArchived
+    archivedAt
+    isDiscarded
+    discardedAt
+  }
+}
+
+mutation NoteTask($description: String!) {
+  noteTask(input: { text: $description }) {
+    taskId
+    description
+    editedAt
+  }
+}
+
+mutation EditTask($id: String!, $newDescription: String!) {
+  editTask(input: { taskId: $id, text: $newDescription }) {
+    taskId
+    description
+    editedAt
+  }
+}
+
+mutation TickOffTask($id: String!) {
+  tickOffTask(input: { taskId: $id }) {
+    taskId
+    isTickedOff
+    tickedOffAt
+  }
+}
+
+mutation ResumeTask($id: String!) {
+  resumeTask(input: { taskId: $id }) {
+    taskId
+    isTickedOff
+    resumedAt
+  }
+}
+
+mutation DiscardTask($id: String!) {
+  discardTask(input: { taskId: $id }) {
+    taskId
+    isDiscarded
+    discardedAt
+  }
+}
