@@ -4,6 +4,11 @@ import { GenericAppError } from '../../../core/logic';
 import { TaskDTO } from './task.dto';
 import { TaskMapper } from './task.mapper';
 import {
+  DiscardTaskDTO,
+  DiscardTaskErrors,
+  DiscardTaskUseCase,
+} from './useCases/discardTask';
+import {
   EditTaskDTO,
   EditTaskErrors,
   EditTaskUseCase,
@@ -30,6 +35,7 @@ export class TaskResolver extends BaseResolver {
     private readonly editTaskUseCase: EditTaskUseCase,
     private readonly tickOffTaskUseCase: TickOffTaskUseCase,
     private readonly resumeTaskUseCase: ResumeTaskUseCase,
+    private readonly discardTaskUseCase: DiscardTaskUseCase,
   ) {
     super();
   }
@@ -109,6 +115,24 @@ export class TaskResolver extends BaseResolver {
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof ResumeTaskErrors.TaskDoesNotExist) {
+        this.fail(result.error.message);
+      }
+      if (result instanceof GenericAppError.UnexpectedError) {
+        this.fail(result.error.message);
+      }
+    }
+
+    if (response.isRight()) {
+      return this.taskMapper.toDTO(response.result.value);
+    }
+  }
+
+  @Mutation()
+  async discardTask(@Args('input') args: DiscardTaskDTO): Promise<TaskDTO> {
+    const response = await this.discardTaskUseCase.execute(args);
+    if (response.isLeft()) {
+      const result = response.result;
+      if (result instanceof DiscardTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
       if (result instanceof GenericAppError.UnexpectedError) {
