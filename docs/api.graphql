@@ -46,6 +46,14 @@ mutation ResumeTask($id: String!) {
   }
 }
 
+mutation ArchiveTask($id: String!) {
+  archiveTask(input: { taskId: $id }) {
+    taskId
+    isArchived
+    archivedAt
+  }
+}
+
 mutation DiscardTask($id: String!) {
   discardTask(input: { taskId: $id }) {
     taskId
