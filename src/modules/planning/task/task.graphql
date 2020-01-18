@@ -11,6 +11,8 @@ type Mutation {
 
   resumeTask(input: ResumeTaskDTO): TaskDTO
 
+  archiveTask(input: ArchiveTaskDTO): TaskDTO
+
   discardTask(input: DiscardTaskDTO): TaskDTO
 }
 
@@ -42,6 +44,10 @@ input TickOffTaskDTO {
 }
 
 input ResumeTaskDTO {
+  taskId: String!
+}
+
+input ArchiveTaskDTO {
   taskId: String!
 }
 

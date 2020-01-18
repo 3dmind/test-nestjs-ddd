@@ -4,6 +4,11 @@ import { GenericAppError } from '../../../core/logic';
 import { TaskDTO } from './task.dto';
 import { TaskMapper } from './task.mapper';
 import {
+  ArchiveTaskDTO,
+  ArchiveTaskErrors,
+  ArchiveTaskUseCase,
+} from './useCases/archiveTask';
+import {
   DiscardTaskDTO,
   DiscardTaskErrors,
   DiscardTaskUseCase,
@@ -36,6 +41,7 @@ export class TaskResolver extends BaseResolver {
     private readonly tickOffTaskUseCase: TickOffTaskUseCase,
     private readonly resumeTaskUseCase: ResumeTaskUseCase,
     private readonly discardTaskUseCase: DiscardTaskUseCase,
+    private readonly archiveTaskUseCase: ArchiveTaskUseCase,
   ) {
     super();
   }
@@ -115,6 +121,24 @@ export class TaskResolver extends BaseResolver {
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof ResumeTaskErrors.TaskDoesNotExist) {
+        this.fail(result.error.message);
+      }
+      if (result instanceof GenericAppError.UnexpectedError) {
+        this.fail(result.error.message);
+      }
+    }
+
+    if (response.isRight()) {
+      return this.taskMapper.toDTO(response.result.value);
+    }
+  }
+
+  @Mutation()
+  async archiveTask(@Args('input') args: ArchiveTaskDTO): Promise<TaskDTO> {
+    const response = await this.archiveTaskUseCase.execute(args);
+    if (response.isLeft()) {
+      const result = response.result;
+      if (result instanceof ArchiveTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
       if (result instanceof GenericAppError.UnexpectedError) {

@@ -5,6 +5,10 @@
  */
 
 /* tslint:disable */
+export class ArchiveTaskDTO {
+    taskId: string;
+}
+
 export class DiscardTaskDTO {
     taskId: string;
 }
@@ -34,6 +38,8 @@ export abstract class IMutation {
     abstract tickOffTask(input?: TickOffTaskDTO): TaskDTO | Promise<TaskDTO>;
 
     abstract resumeTask(input?: ResumeTaskDTO): TaskDTO | Promise<TaskDTO>;
+
+    abstract archiveTask(input?: ArchiveTaskDTO): TaskDTO | Promise<TaskDTO>;
 
     abstract discardTask(input?: DiscardTaskDTO): TaskDTO | Promise<TaskDTO>;
 }

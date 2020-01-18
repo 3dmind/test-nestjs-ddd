@@ -9,12 +9,14 @@ import { GetAllTasksUseCase } from './useCases/getAllTasks';
 import { NoteTaskUseCase } from './useCases/noteTask';
 import { ResumeTaskUseCase } from './useCases/resumeTask';
 import { TickOffTaskUseCase } from './useCases/tickOffTask';
+import { ArchiveTaskUseCase } from './useCases/archiveTask';
 
 export const taskProviders: Provider[] = [
   {
     provide: 'TASK_MODEL',
     useValue: TaskModel,
   },
+  ArchiveTaskUseCase,
   DiscardTaskUseCase,
   EditTaskUseCase,
   GetAllTasksUseCase,
