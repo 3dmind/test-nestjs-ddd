@@ -1,20 +1,22 @@
 type Query {
-  tasks: [TaskDTO]
+  tasks: [TaskDto]
 }
 
 type Mutation {
-  noteTask(input: NoteTaskDTO!): TaskDTO
+  noteTask(input: NoteTaskDto!): TaskDto
 
-  editTask(input: EditTaskDTO!): TaskDTO
+  editTask(input: EditTaskDto!): TaskDto
 
-  tickOffTask(input: TickOffTaskDTO): TaskDTO
+  tickOffTask(input: TickOffTaskDto): TaskDto
 
-  resumeTask(input: ResumeTaskDTO): TaskDTO
+  resumeTask(input: ResumeTaskDto): TaskDto
 
-  discardTask(input: DiscardTaskDTO): TaskDTO
+  archiveTask(input: ArchiveTaskDto): TaskDto
+
+  discardTask(input: DiscardTaskDto): TaskDto
 }
 
-type TaskDTO {
+type TaskDto {
   taskId: String!
   description: String!
   createdAt: String!
@@ -28,23 +30,27 @@ type TaskDTO {
   discardedAt: String
 }
 
-input NoteTaskDTO {
+input NoteTaskDto {
   text: String!
 }
 
-input EditTaskDTO {
+input EditTaskDto {
   taskId: String!
   text: String!
 }
 
-input TickOffTaskDTO {
+input TickOffTaskDto {
   taskId: String!
 }
 
-input ResumeTaskDTO {
+input ResumeTaskDto {
   taskId: String!
 }
 
-input DiscardTaskDTO {
+input ArchiveTaskDto {
+  taskId: String!
+}
+
+input DiscardTaskDto {
   taskId: String!
 }

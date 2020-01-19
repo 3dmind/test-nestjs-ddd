@@ -1,5 +1,6 @@
-export { Either, left, right, eitherLeft, eitherRight } from './Either';
-export { GenericAppError } from './GenericAppError';
-export { Left } from './Left';
-export { Result } from './Result';
-export { Right } from './Right';
+export { Either, left, right, eitherLeft, eitherRight } from './either';
+export { GenericAppErrors } from './generic-app.errors';
+export { Left } from './left';
+export { Result } from './result';
+export { Right } from './right';
+export { UseCaseError } from './use-case-error';

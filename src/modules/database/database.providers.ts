@@ -1,5 +1,6 @@
 import { Provider } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
+import { DB_INJECTION_TOKEN } from '../constants';
 import { TaskModel } from '../planning/task/task.model';
 
 async function sequelizeFactory() {
@@ -14,7 +15,7 @@ async function sequelizeFactory() {
 
 export const databaseProviders: Provider[] = [
   {
-    provide: 'SEQUELIZE',
+    provide: DB_INJECTION_TOKEN,
     useFactory: sequelizeFactory,
   },
 ];

@@ -1,0 +1,1 @@
+export const TASK_MODEL_INJECTION_TOKEN = Symbol('TASK_MODEL');
