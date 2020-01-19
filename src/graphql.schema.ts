@@ -5,50 +5,50 @@
  */
 
 /* tslint:disable */
-export class ArchiveTaskDTO {
+export class ArchiveTaskDto {
     taskId: string;
 }
 
-export class DiscardTaskDTO {
+export class DiscardTaskDto {
     taskId: string;
 }
 
-export class EditTaskDTO {
+export class EditTaskDto {
     taskId: string;
     text: string;
 }
 
-export class NoteTaskDTO {
+export class NoteTaskDto {
     text: string;
 }
 
-export class ResumeTaskDTO {
+export class ResumeTaskDto {
     taskId: string;
 }
 
-export class TickOffTaskDTO {
+export class TickOffTaskDto {
     taskId: string;
 }
 
 export abstract class IMutation {
-    abstract noteTask(input: NoteTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract noteTask(input: NoteTaskDto): TaskDto | Promise<TaskDto>;
 
-    abstract editTask(input: EditTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract editTask(input: EditTaskDto): TaskDto | Promise<TaskDto>;
 
-    abstract tickOffTask(input?: TickOffTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract tickOffTask(input?: TickOffTaskDto): TaskDto | Promise<TaskDto>;
 
-    abstract resumeTask(input?: ResumeTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract resumeTask(input?: ResumeTaskDto): TaskDto | Promise<TaskDto>;
 
-    abstract archiveTask(input?: ArchiveTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract archiveTask(input?: ArchiveTaskDto): TaskDto | Promise<TaskDto>;
 
-    abstract discardTask(input?: DiscardTaskDTO): TaskDTO | Promise<TaskDTO>;
+    abstract discardTask(input?: DiscardTaskDto): TaskDto | Promise<TaskDto>;
 }
 
 export abstract class IQuery {
-    abstract tasks(): TaskDTO[] | Promise<TaskDTO[]>;
+    abstract tasks(): TaskDto[] | Promise<TaskDto[]>;
 }
 
-export class TaskDTO {
+export class TaskDto {
     taskId: string;
     description: string;
     createdAt: string;

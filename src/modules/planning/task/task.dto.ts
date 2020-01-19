@@ -1,1 +1,1 @@
-export { TaskDTO } from '../../../graphql.schema';
+export { TaskDto } from '../../../graphql.schema';

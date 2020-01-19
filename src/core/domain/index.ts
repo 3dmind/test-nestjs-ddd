@@ -1,4 +1,4 @@
-export { Entity } from './Entity';
-export { UniqueEntityID } from './UniqueEntityID';
-export { UseCase } from './UseCase';
-export { ValueObject } from './ValueObject';
+export { Entity } from './entity';
+export { UniqueEntityId } from './unique-entity-id';
+export { UseCase } from './use-case.interface';
+export { ValueObject } from './value-object';

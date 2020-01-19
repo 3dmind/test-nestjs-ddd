@@ -1,35 +1,35 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../core/infrastructure';
-import { GenericAppError } from '../../../core/logic';
-import { TaskDTO } from './task.dto';
+import { GenericAppErrors } from '../../../core/logic';
+import { TaskDto } from './task.dto';
 import { TaskMapper } from './task.mapper';
 import {
-  ArchiveTaskDTO,
+  ArchiveTaskDto,
   ArchiveTaskErrors,
   ArchiveTaskUseCase,
-} from './useCases/archiveTask';
+} from './usecases/archive-task';
 import {
-  DiscardTaskDTO,
+  DiscardTaskDto,
   DiscardTaskErrors,
   DiscardTaskUseCase,
-} from './useCases/discardTask';
+} from './usecases/discard-task';
 import {
-  EditTaskDTO,
+  EditTaskDto,
   EditTaskErrors,
   EditTaskUseCase,
-} from './useCases/editTask';
-import { GetAllTasksUseCase } from './useCases/getAllTasks';
-import { NoteTaskDTO, NoteTaskUseCase } from './useCases/noteTask';
+} from './usecases/edit-task';
+import { GetAllTasksUseCase } from './usecases/get-all-tasks';
+import { NoteTaskDto, NoteTaskUseCase } from './usecases/note-task';
 import {
-  ResumeTaskDTO,
+  ResumeTaskDto,
   ResumeTaskErrors,
   ResumeTaskUseCase,
-} from './useCases/resumeTask';
+} from './usecases/resume-task';
 import {
-  TickOffTaskDTO,
+  TickOffTaskDto,
   TickOffTaskErrors,
   TickOffTaskUseCase,
-} from './useCases/tickOffTask';
+} from './usecases/tick-off-task';
 
 @Resolver('Task')
 export class TaskResolver extends BaseResolver {
@@ -47,7 +47,7 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Query()
-  async tasks(): Promise<TaskDTO[]> {
+  public async tasks(): Promise<TaskDto[]> {
     const response = await this.getAllTasksUseCase.execute();
     if (response.isLeft()) {
       const result = response.result;
@@ -62,11 +62,11 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async noteTask(@Args('input') args: NoteTaskDTO): Promise<TaskDTO> {
+  public async noteTask(@Args('input') args: NoteTaskDto): Promise<TaskDto> {
     const response = await this.noteTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
-      if (result instanceof GenericAppError.UnexpectedError) {
+      if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       } else {
         this.fail(result.error);
@@ -79,13 +79,13 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async editTask(@Args('input') args: EditTaskDTO): Promise<TaskDTO> {
+  public async editTask(@Args('input') args: EditTaskDto): Promise<TaskDto> {
     const response = await this.editTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof EditTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
-      } else if (result instanceof GenericAppError.UnexpectedError) {
+      } else if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       } else {
         this.fail(result.error);
@@ -98,14 +98,16 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async tickOffTask(@Args('input') args: TickOffTaskDTO): Promise<TaskDTO> {
+  public async tickOffTask(
+    @Args('input') args: TickOffTaskDto,
+  ): Promise<TaskDto> {
     const response = await this.tickOffTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof TickOffTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
-      if (result instanceof GenericAppError.UnexpectedError) {
+      if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       }
     }
@@ -116,14 +118,16 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async resumeTask(@Args('input') args: ResumeTaskDTO): Promise<TaskDTO> {
+  public async resumeTask(
+    @Args('input') args: ResumeTaskDto,
+  ): Promise<TaskDto> {
     const response = await this.resumeTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof ResumeTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
-      if (result instanceof GenericAppError.UnexpectedError) {
+      if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       }
     }
@@ -134,14 +138,16 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async archiveTask(@Args('input') args: ArchiveTaskDTO): Promise<TaskDTO> {
+  public async archiveTask(
+    @Args('input') args: ArchiveTaskDto,
+  ): Promise<TaskDto> {
     const response = await this.archiveTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof ArchiveTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
-      if (result instanceof GenericAppError.UnexpectedError) {
+      if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       }
     }
@@ -152,14 +158,16 @@ export class TaskResolver extends BaseResolver {
   }
 
   @Mutation()
-  async discardTask(@Args('input') args: DiscardTaskDTO): Promise<TaskDTO> {
+  public async discardTask(
+    @Args('input') args: DiscardTaskDto,
+  ): Promise<TaskDto> {
     const response = await this.discardTaskUseCase.execute(args);
     if (response.isLeft()) {
       const result = response.result;
       if (result instanceof DiscardTaskErrors.TaskDoesNotExist) {
         this.fail(result.error.message);
       }
-      if (result instanceof GenericAppError.UnexpectedError) {
+      if (result instanceof GenericAppErrors.UnexpectedError) {
         this.fail(result.error.message);
       }
     }

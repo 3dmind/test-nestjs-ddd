@@ -1,6 +1,6 @@
-import { Entity, UniqueEntityID } from '../../../../core/domain';
-import { TaskDescription } from './taskDescription.value';
-import { TaskId } from './taskId.entity';
+import { Entity, UniqueEntityId } from '../../../../core/domain';
+import { TaskDescription } from './task-description.value';
+import { TaskId } from './task-id.entity';
 
 interface TaskEntityProps {
   description: TaskDescription;
@@ -16,11 +16,11 @@ interface TaskEntityProps {
 }
 
 export class TaskEntity extends Entity<TaskEntityProps> {
-  private constructor(props: TaskEntityProps, id?: UniqueEntityID) {
+  private constructor(props: TaskEntityProps, id?: UniqueEntityId) {
     super(props, id);
   }
 
-  get id(): UniqueEntityID {
+  get id(): UniqueEntityId {
     return this._id;
   }
 
@@ -58,7 +58,7 @@ export class TaskEntity extends Entity<TaskEntityProps> {
 
   public static create(
     props: TaskEntityProps,
-    id?: UniqueEntityID,
+    id?: UniqueEntityId,
   ): TaskEntity {
     return new TaskEntity(props, id);
   }

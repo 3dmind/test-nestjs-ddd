@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UniqueEntityID } from '../../../core/domain';
-import { TaskDTO } from '../../../graphql.schema';
+import { UniqueEntityId } from '../../../core/domain';
+import { TaskDto } from '../../../graphql.schema';
 import { TaskDescription, TaskEntity } from './domain';
 import { TaskModel } from './task.model';
 
@@ -20,11 +20,11 @@ export class TaskMapper {
         discarded: taskModel.isDiscarded,
         discardedAt: taskModel.discardedAt,
       },
-      UniqueEntityID.create(taskModel.taskId),
+      UniqueEntityId.create(taskModel.taskId),
     );
   }
 
-  public toDTO(taskEntity: TaskEntity): TaskDTO {
+  public toDTO(taskEntity: TaskEntity): TaskDto {
     return {
       taskId: taskEntity.id.value,
       description: taskEntity.description.value,
