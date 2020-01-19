@@ -13,7 +13,7 @@ import { TaskRepository } from '../../task.repository';
 type Response = Either<GenericAppErrors.UnexpectedError, Result<Task[]>>;
 
 @Injectable()
-export class GetAllTasksUseCase implements UseCase<void, Response> {
+export class AllTasksUseCase implements UseCase<void, Response> {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   public async execute(): Promise<Response> {
