@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from '../../../core/infrastructure/';
+import { TASK_MODEL_INJECTION_TOKEN } from './constants';
 import { TaskEntity, TaskId } from './domain';
 import { TaskMapper } from './task.mapper';
 import { TaskModel } from './task.model';
@@ -13,7 +14,8 @@ interface ITaskRepository extends Repository<TaskEntity> {
 export class TaskRepository implements ITaskRepository {
   constructor(
     private readonly taskMapper: TaskMapper,
-    @Inject('TASK_MODEL') private readonly taskModel: typeof TaskModel,
+    @Inject(TASK_MODEL_INJECTION_TOKEN)
+    private readonly taskModel: typeof TaskModel,
   ) {}
 
   public async exists(taskEntity: TaskEntity): Promise<boolean> {
