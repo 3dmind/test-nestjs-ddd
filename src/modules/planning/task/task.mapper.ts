@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityId } from '../../../core/domain';
 import { TaskDto } from '../../../graphql.schema';
-import { TaskDescription, TaskEntity } from './domain';
+import { Description, Task } from './domain';
 import { TaskModel } from './task.model';
 
 @Injectable()
 export class TaskMapper {
-  public toDomain(taskModel: TaskModel): TaskEntity {
-    return TaskEntity.create(
+  public toDomain(taskModel: TaskModel): Task {
+    return Task.create(
       {
-        description: TaskDescription.create(taskModel.description).value,
+        description: Description.create(taskModel.description).value,
         createdAt: taskModel.createdAt,
         editedAt: taskModel.editedAt,
         tickedOff: taskModel.isTickedOff,
@@ -24,7 +24,7 @@ export class TaskMapper {
     );
   }
 
-  public toDTO(taskEntity: TaskEntity): TaskDto {
+  public toDTO(taskEntity: Task): TaskDto {
     return {
       taskId: taskEntity.id.value,
       description: taskEntity.description.value,
@@ -40,7 +40,7 @@ export class TaskMapper {
     };
   }
 
-  public toPersistence(taskEntity: TaskEntity): TaskModel {
+  public toPersistence(taskEntity: Task): TaskModel {
     const taskModel = new TaskModel();
     taskModel.taskId = taskEntity.id.value;
     taskModel.description = taskEntity.description.value;

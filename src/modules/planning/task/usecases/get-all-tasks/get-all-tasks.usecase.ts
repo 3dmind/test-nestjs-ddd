@@ -7,10 +7,10 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskEntity } from '../../domain';
+import { Task } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 
-type Response = Either<GenericAppErrors.UnexpectedError, Result<TaskEntity[]>>;
+type Response = Either<GenericAppErrors.UnexpectedError, Result<Task[]>>;
 
 @Injectable()
 export class GetAllTasksUseCase implements UseCase<void, Response> {

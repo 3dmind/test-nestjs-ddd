@@ -1,4 +1,4 @@
-import { allPass, compose, flip, gt, is, prop, isNil } from 'ramda';
+import { allPass, compose, flip, gt, is, isNil, prop } from 'ramda';
 import { ValueObject } from '../../../../core/domain';
 import { Result } from '../../../../core/logic';
 
@@ -9,12 +9,12 @@ function isTextValid(text: string): boolean {
   return allPass([isString, isLengthGreaterZero])(text);
 }
 
-interface TaskDescriptionProps {
+interface DescriptionProps {
   value: string;
 }
 
-export class TaskDescription extends ValueObject<TaskDescriptionProps> {
-  private constructor(props: TaskDescriptionProps) {
+export class Description extends ValueObject<DescriptionProps> {
+  private constructor(props: DescriptionProps) {
     super(props);
   }
 
@@ -22,17 +22,17 @@ export class TaskDescription extends ValueObject<TaskDescriptionProps> {
     return this.props.value;
   }
 
-  public static create(text: string): Result<TaskDescription> {
+  public static create(text: string): Result<Description> {
     if (isNil(text)) {
-      return Result.fail<TaskDescription>(
+      return Result.fail<Description>(
         `Task description text can't be 'null' or 'undefined'`,
       );
     } else if (!isTextValid(text)) {
-      return Result.fail<TaskDescription>(
+      return Result.fail<Description>(
         'Task description text is not valid.',
       );
     } else {
-      return Result.ok<TaskDescription>(new TaskDescription({ value: text }));
+      return Result.ok<Description>(new Description({ value: text }));
     }
   }
 }

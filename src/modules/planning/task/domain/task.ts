@@ -1,9 +1,9 @@
 import { Entity, UniqueEntityId } from '../../../../core/domain';
-import { TaskDescription } from './task-description.value';
-import { TaskId } from './task-id.entity';
+import { Description } from './description';
+import { TaskId } from './task-id';
 
-interface TaskEntityProps {
-  description: TaskDescription;
+interface TaskProps {
+  description: Description;
   createdAt: Date;
   tickedOff: boolean;
   tickedOffAt: Date;
@@ -15,8 +15,8 @@ interface TaskEntityProps {
   archivedAt: Date;
 }
 
-export class TaskEntity extends Entity<TaskEntityProps> {
-  private constructor(props: TaskEntityProps, id?: UniqueEntityId) {
+export class Task extends Entity<TaskProps> {
+  private constructor(props: TaskProps, id?: UniqueEntityId) {
     super(props, id);
   }
 
@@ -28,7 +28,7 @@ export class TaskEntity extends Entity<TaskEntityProps> {
     return TaskId.create(this.id);
   }
 
-  get description(): TaskDescription {
+  get description(): Description {
     return this.props.description;
   }
 
@@ -57,14 +57,14 @@ export class TaskEntity extends Entity<TaskEntityProps> {
   }
 
   public static create(
-    props: TaskEntityProps,
+    props: TaskProps,
     id?: UniqueEntityId,
-  ): TaskEntity {
-    return new TaskEntity(props, id);
+  ): Task {
+    return new Task(props, id);
   }
 
-  public static note(description: TaskDescription): TaskEntity {
-    return TaskEntity.create({
+  public static note(description: Description): Task {
+    return Task.create({
       createdAt: new Date(),
       description,
       tickedOff: false,
@@ -92,7 +92,7 @@ export class TaskEntity extends Entity<TaskEntityProps> {
     this.props.resumedAt = new Date();
   }
 
-  public edit(description: TaskDescription): void {
+  public edit(description: Description): void {
     this.props.description = description;
     this.props.editedAt = new Date();
   }

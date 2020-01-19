@@ -7,14 +7,14 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskEntity, TaskId } from '../../domain';
+import { Task, TaskId } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 import { ArchiveTaskDto } from './archive-task.dto';
 import { ArchiveTaskErrors } from './archive-task.errors';
 
 type Response = Either<
   ArchiveTaskErrors.TaskDoesNotExist | GenericAppErrors.UnexpectedError,
-  Result<TaskEntity>
+  Result<Task>
 >;
 
 @Injectable()

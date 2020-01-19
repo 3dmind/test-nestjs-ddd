@@ -7,13 +7,13 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskDescription, TaskEntity } from '../../domain';
+import { Description, Task } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 import { NoteTaskDto } from './note-task.dto';
 
 type Response = Either<
   GenericAppErrors.UnexpectedError | Result<string>,
-  Result<TaskEntity>
+  Result<Task>
 >;
 
 @Injectable()
@@ -22,7 +22,7 @@ export class NoteTaskUseCase implements UseCase<NoteTaskDto, Response> {
 
   public async execute(dto: NoteTaskDto): Promise<Response> {
     const { text } = dto;
-    const taskDescriptionOrError = TaskDescription.create(text);
+    const taskDescriptionOrError = Description.create(text);
 
     if (taskDescriptionOrError.isFailure) {
       return eitherLeft(
@@ -30,7 +30,7 @@ export class NoteTaskUseCase implements UseCase<NoteTaskDto, Response> {
       ) as Response;
     }
 
-    const taskEntity = TaskEntity.note(taskDescriptionOrError.value);
+    const taskEntity = Task.note(taskDescriptionOrError.value);
     try {
       await this.taskRepository.save(taskEntity);
     } catch (error) {

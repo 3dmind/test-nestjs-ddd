@@ -7,12 +7,12 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskEntity, TaskId } from '../../domain';
+import { Task, TaskId } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 import { DiscardTaskDto } from './discar-task.dto';
 import { DiscardTaskErrors } from './discard-task.errors';
 
-type Response = Either<GenericAppErrors.UnexpectedError, Result<TaskEntity>>;
+type Response = Either<GenericAppErrors.UnexpectedError, Result<Task>>;
 
 @Injectable()
 export class DiscardTaskUseCase implements UseCase<DiscardTaskDto, Response> {

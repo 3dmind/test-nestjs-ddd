@@ -7,7 +7,7 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskDescription, TaskEntity, TaskId } from '../../domain';
+import { Description, Task, TaskId } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 import { EditTaskDto } from './edit-task.dto';
 import { EditTaskErrors } from './edit-task.errors';
@@ -16,7 +16,7 @@ type Response = Either<
   | EditTaskErrors.TaskDoesNotExist
   | GenericAppErrors.UnexpectedError
   | Result<string>,
-  Result<TaskEntity>
+  Result<Task>
 >;
 
 @Injectable()
@@ -35,7 +35,7 @@ export class EditTaskUseCase implements UseCase<EditTaskDto, Response> {
         ) as Response;
       }
 
-      const taskDescriptionOrError = TaskDescription.create(dto.text);
+      const taskDescriptionOrError = Description.create(dto.text);
       if (taskDescriptionOrError.isFailure) {
         return eitherLeft(
           Result.fail<string>(taskDescriptionOrError.error),

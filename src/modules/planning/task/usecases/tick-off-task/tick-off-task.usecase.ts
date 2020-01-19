@@ -7,14 +7,14 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskEntity, TaskId } from '../../domain';
+import { Task, TaskId } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 import { TickOffTaskDto } from './tick-off-task.dto';
 import { TickOffTaskErrors } from './tick-off-task.errors';
 
 type Response = Either<
   TickOffTaskErrors.TaskDoesNotExist | GenericAppErrors.UnexpectedError,
-  Result<TaskEntity>
+  Result<Task>
 >;
 
 @Injectable()

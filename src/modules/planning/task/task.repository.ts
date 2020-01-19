@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from '../../../core/infrastructure/';
 import { TASK_MODEL_INJECTION_TOKEN } from './constants';
-import { TaskEntity, TaskId } from './domain';
+import { Task, TaskId } from './domain';
 import { TaskMapper } from './task.mapper';
 import { TaskModel } from './task.model';
 
-interface ITaskRepository extends Repository<TaskEntity> {
-  findAllTasks(): Promise<TaskEntity[]>;
-  findByTaskId(taskId: TaskId): Promise<[boolean, TaskEntity?]>;
+interface ITaskRepository extends Repository<Task> {
+  findAllTasks(): Promise<Task[]>;
+
+  findByTaskId(taskId: TaskId): Promise<[boolean, Task?]>;
 }
 
 @Injectable()
@@ -18,12 +19,12 @@ export class TaskRepository implements ITaskRepository {
     private readonly taskModel: typeof TaskModel,
   ) {}
 
-  public async exists(taskEntity: TaskEntity): Promise<boolean> {
+  public async exists(taskEntity: Task): Promise<boolean> {
     const taskModel = await this.taskModel.findByPk(taskEntity.id.value);
     return !!taskModel === true;
   }
 
-  public async save(taskEntity: TaskEntity): Promise<TaskEntity> {
+  public async save(taskEntity: Task): Promise<Task> {
     const exists = await this.exists(taskEntity);
     const taskModel = this.taskMapper.toPersistence(taskEntity);
     if (!exists) {
@@ -37,17 +38,20 @@ export class TaskRepository implements ITaskRepository {
     return taskEntity;
   }
 
-  public async findAllTasks(): Promise<TaskEntity[]> {
+  public async findAllTasks(): Promise<Task[]> {
     const taskModels = await this.taskModel.findAll();
     return taskModels.map((taskModel) => this.taskMapper.toDomain(taskModel));
   }
 
-  public async findByTaskId(taskId: TaskId): Promise<[boolean, TaskEntity?]> {
+  public async findByTaskId(taskId: TaskId): Promise<[boolean, Task?]> {
     const taskModel = await this.taskModel.findByPk(taskId.id.value);
     const found = !!taskModel === true;
     if (found) {
       const taskEntity = this.taskMapper.toDomain(taskModel);
-      return [found, taskEntity];
+      return [
+        found,
+        taskEntity,
+      ];
     } else {
       return [found];
     }
