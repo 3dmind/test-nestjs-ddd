@@ -30,6 +30,11 @@ export class TickOffTaskDto {
     taskId: string;
 }
 
+export class ActiveTasksDto {
+    count: number;
+    tasks?: TaskDto[];
+}
+
 export abstract class IMutation {
     abstract noteTask(input: NoteTaskDto): TaskDto | Promise<TaskDto>;
 
@@ -46,6 +51,8 @@ export abstract class IMutation {
 
 export abstract class IQuery {
     abstract tasks(): TaskDto[] | Promise<TaskDto[]>;
+
+    abstract activeTasks(): ActiveTasksDto | Promise<ActiveTasksDto>;
 }
 
 export class TaskDto {

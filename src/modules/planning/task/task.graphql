@@ -1,5 +1,7 @@
 type Query {
   tasks: [TaskDto]
+
+  activeTasks: ActiveTasksDto!
 }
 
 type Mutation {
@@ -28,6 +30,11 @@ type TaskDto {
   archivedAt: String
   isDiscarded: Boolean!
   discardedAt: String
+}
+
+type ActiveTasksDto {
+  count: Int!
+  tasks: [TaskDto]
 }
 
 input NoteTaskDto {

@@ -14,11 +14,23 @@ query Tasks {
   }
 }
 
+query ActiveTasks {
+  activeTasks {
+    count
+    tasks {
+      taskId
+      description
+      isArchived
+      isDiscarded
+    }
+  }
+}
+
 mutation NoteTask($description: String!) {
   noteTask(input: { text: $description }) {
     taskId
     description
-    editedAt
+    createdAt
   }
 }
 
