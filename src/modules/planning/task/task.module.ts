@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { taskProviders } from './task.providers';
+import { activeTasksProviders } from './use-cases/active-tasks';
 import { allTasksProviders } from './use-cases/all-tasks';
 import { archiveTaskProviders } from './use-cases/archive-task';
 import { discardTaskProviders } from './use-cases/discard-task';
@@ -11,6 +12,7 @@ import { tickOffTaskProviders } from './use-cases/tick-off-task';
 @Module({
   providers: [
     ...taskProviders,
+    ...activeTasksProviders,
     ...allTasksProviders,
     ...archiveTaskProviders,
     ...discardTaskProviders,

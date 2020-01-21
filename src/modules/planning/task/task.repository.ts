@@ -9,6 +9,8 @@ interface ITaskRepository extends Repository<Task> {
   findAllTasks(): Promise<Task[]>;
 
   findByTaskId(taskId: TaskId): Promise<[boolean, Task?]>;
+
+  findAndCountActiveTasks(): Promise<{ count: number; activeTasks: Task[] }>;
 }
 
 @Injectable()
@@ -48,12 +50,25 @@ export class TaskRepository implements ITaskRepository {
     const found = !!taskModel === true;
     if (found) {
       const taskEntity = this.taskMapper.toDomain(taskModel);
-      return [
-        found,
-        taskEntity,
-      ];
+      return [found, taskEntity];
     } else {
       return [found];
     }
+  }
+
+  public async findAndCountActiveTasks(): Promise<{
+    count: number;
+    activeTasks: Task[];
+  }> {
+    const { count, rows: taskModels } = await this.taskModel.findAndCountAll({
+      where: {
+        isDiscarded: false,
+        isArchived: false,
+      },
+    });
+    const activeTasks = taskModels.map((taskModel) =>
+      this.taskMapper.toDomain(taskModel),
+    );
+    return { count, activeTasks };
   }
 }
