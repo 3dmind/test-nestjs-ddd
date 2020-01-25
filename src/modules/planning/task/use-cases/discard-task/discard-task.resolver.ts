@@ -7,7 +7,7 @@ import { DiscardTaskDto } from './discar-task.dto';
 import { DiscardTaskErrors } from './discard-task.errors';
 import { DiscardTaskUseCase } from './discard-task.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class DiscardTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -16,7 +16,7 @@ export class DiscardTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async discardTask(
     @Args('input') args: DiscardTaskDto,
   ): Promise<TaskDto> {

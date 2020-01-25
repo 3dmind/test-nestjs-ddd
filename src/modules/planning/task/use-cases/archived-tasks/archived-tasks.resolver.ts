@@ -1,10 +1,11 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../../../core/infrastructure';
-import { ArchivedTasksDto } from '../../../../../graphql.schema';
+import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
+import { ArchivedTasksDto } from './archived-tasks.dto';
 import { ArchivedTasksUseCase } from './archived-tasks.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class ArchivedTasksResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -13,7 +14,7 @@ export class ArchivedTasksResolver extends BaseResolver {
     super();
   }
 
-  @Query()
+  @Query((returns) => ArchivedTasksDto)
   public async archivedTasks(): Promise<ArchivedTasksDto> {
     const response = await this.archivedTasksUseCase.execute();
     if (response.isLeft()) {

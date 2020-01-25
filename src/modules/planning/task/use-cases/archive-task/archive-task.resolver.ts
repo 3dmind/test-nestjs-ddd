@@ -7,7 +7,7 @@ import { ArchiveTaskDto } from './archive-task.dto';
 import { ArchiveTaskErrors } from './archive-task.errors';
 import { ArchiveTaskUseCase } from './archive-task.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class ArchiveTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -16,7 +16,7 @@ export class ArchiveTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async archiveTask(
     @Args('input') args: ArchiveTaskDto,
   ): Promise<TaskDto> {

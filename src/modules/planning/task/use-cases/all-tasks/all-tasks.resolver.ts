@@ -4,7 +4,7 @@ import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
 import { AllTasksUseCase } from './all-tasks.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class AllTasksResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -13,7 +13,7 @@ export class AllTasksResolver extends BaseResolver {
     super();
   }
 
-  @Query()
+  @Query((returns) => [TaskDto])
   public async tasks(): Promise<TaskDto[]> {
     const response = await this.getAllTasksUseCase.execute();
     if (response.isLeft()) {

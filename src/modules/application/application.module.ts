@@ -6,11 +6,11 @@ import { TaskModule } from '../planning/task/task.module';
 @Module({
   imports: [
     DatabaseModule,
-    TaskModule,
     GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
-      debug: false,
+      autoSchemaFile: 'schema.graphql',
+      debug: true,
     }),
+    TaskModule,
   ],
 })
 export class ApplicationModule {}

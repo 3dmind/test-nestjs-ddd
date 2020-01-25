@@ -7,7 +7,7 @@ import { ResumeTaskDto } from './resume-task.dto';
 import { ResumeTaskErrors } from './resume-task.errors';
 import { ResumeTaskUseCase } from './resume-task.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class ResumeTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -16,7 +16,7 @@ export class ResumeTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async resumeTask(
     @Args('input') args: ResumeTaskDto,
   ): Promise<TaskDto> {
