@@ -1,1 +1,7 @@
-export { DiscardTaskDto } from '../../../../../graphql.schema';
+import { Field, InputType } from 'type-graphql';
+
+@InputType()
+export class DiscardTaskDto {
+  @Field()
+  taskId: string;
+}

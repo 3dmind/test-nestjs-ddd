@@ -13,9 +13,7 @@ async function sequelizeFactory() {
   return sequelize;
 }
 
-export const databaseProviders: Provider[] = [
-  {
-    provide: DB_INJECTION_TOKEN,
-    useFactory: sequelizeFactory,
-  },
-];
+export const sequelizeProvider: Provider = {
+  provide: DB_INJECTION_TOKEN,
+  useFactory: sequelizeFactory,
+};

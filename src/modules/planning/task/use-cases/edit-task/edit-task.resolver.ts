@@ -7,7 +7,7 @@ import { EditTaskDto } from './edit-task.dto';
 import { EditTaskErrors } from './edit-task.errors';
 import { EditTaskUseCase } from './edit-task.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class EditTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -16,7 +16,7 @@ export class EditTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async editTask(@Args('input') args: EditTaskDto): Promise<TaskDto> {
     const response = await this.editTaskUseCase.execute(args);
     if (response.isLeft()) {

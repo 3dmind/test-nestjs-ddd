@@ -2,9 +2,10 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../../../core/infrastructure';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
+import { AllTasksDto } from './all-tasks.dto';
 import { AllTasksUseCase } from './all-tasks.usecase';
 
-@Resolver()
+@Resolver(() => TaskDto)
 export class AllTasksResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -13,18 +14,19 @@ export class AllTasksResolver extends BaseResolver {
     super();
   }
 
-  @Query()
-  public async tasks(): Promise<TaskDto[]> {
+  @Query(() => AllTasksDto)
+  public async allTasks(): Promise<AllTasksDto> {
     const response = await this.getAllTasksUseCase.execute();
     if (response.isLeft()) {
       const result = response.result;
       this.fail(result.error.message);
     }
     if (response.isRight()) {
-      const taskEntities = response.result.value;
-      return taskEntities.map((taskEntity) =>
-        this.taskMapper.toDTO(taskEntity),
-      );
+      const { count, tasks } = response.result.value;
+      return {
+        count,
+        tasks: tasks.map((task) => this.taskMapper.toDTO(task)),
+      };
     }
   }
 }

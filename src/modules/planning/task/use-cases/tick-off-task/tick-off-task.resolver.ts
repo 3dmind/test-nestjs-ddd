@@ -7,7 +7,7 @@ import { TickOffTaskDto } from './tick-off-task.dto';
 import { TickOffTaskErrors } from './tick-off-task.errors';
 import { TickOffTaskUseCase } from './tick-off-task.usecase';
 
-@Resolver()
+@Resolver((of) => TaskDto)
 export class TickOffTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -16,7 +16,7 @@ export class TickOffTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async tickOffTask(
     @Args('input') args: TickOffTaskDto,
   ): Promise<TaskDto> {

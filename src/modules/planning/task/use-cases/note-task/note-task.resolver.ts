@@ -6,7 +6,7 @@ import { TaskMapper } from '../../task.mapper';
 import { NoteTaskDto } from './note-task.dto';
 import { NoteTaskUseCase } from './note-task.usecase';
 
-@Resolver('Task')
+@Resolver((of) => TaskDto)
 export class NoteTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -15,7 +15,7 @@ export class NoteTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation()
+  @Mutation((returns) => TaskDto)
   public async noteTask(@Args('input') args: NoteTaskDto): Promise<TaskDto> {
     const response = await this.noteTaskUseCase.execute(args);
     if (response.isLeft()) {
