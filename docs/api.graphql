@@ -1,16 +1,18 @@
-query Tasks {
-  tasks {
-    taskId
-    description
-    createdAt
-    editedAt
-    isTickedOff
-    tickedOffAt
-    resumedAt
-    isArchived
-    archivedAt
-    isDiscarded
-    discardedAt
+query AllTasks {
+  allTasks {
+    count
+    tasks {
+      taskId
+      description
+      createdAt
+      editedAt
+      isTickedOff
+      tickedOffAt
+      isArchived
+      archivedAt
+      isDiscarded
+      discardedAt
+    }
   }
 }
 
