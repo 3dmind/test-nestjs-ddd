@@ -10,7 +10,12 @@ import {
 import { Task } from '../../domain';
 import { TaskRepository } from '../../task.repository';
 
-type Response = Either<GenericAppErrors.UnexpectedError, Result<Task[]>>;
+interface UseCaseResult {
+  count: number;
+  tasks: Task[];
+}
+
+type Response = Either<GenericAppErrors.UnexpectedError, Result<UseCaseResult>>;
 
 @Injectable()
 export class AllTasksUseCase implements UseCase<void, Response> {
@@ -18,8 +23,10 @@ export class AllTasksUseCase implements UseCase<void, Response> {
 
   public async execute(): Promise<Response> {
     try {
-      const taskEntities = await this.taskRepository.findAllTasks();
-      return eitherRight(Result.ok(taskEntities));
+      const { count, tasks } = await this.taskRepository.findAndCountAllTasks();
+      return eitherRight(
+        Result.ok<UseCaseResult>({ count, tasks }),
+      );
     } catch (error) {
       return eitherLeft(new GenericAppErrors.UnexpectedError(error));
     }

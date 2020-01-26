@@ -6,7 +6,7 @@ import { TaskMapper } from './task.mapper';
 import { TaskModel } from './task.model';
 
 interface ITaskRepository extends Repository<Task> {
-  findAllTasks(): Promise<Task[]>;
+  findAndCountAllTasks(): Promise<{ count: number; tasks: Task[] }>;
 
   findByTaskId(taskId: TaskId): Promise<[boolean, Task?]>;
 
@@ -45,9 +45,18 @@ export class TaskRepository implements ITaskRepository {
     return taskEntity;
   }
 
-  public async findAllTasks(): Promise<Task[]> {
-    const taskModels = await this.taskModel.findAll();
-    return taskModels.map((taskModel) => this.taskMapper.toDomain(taskModel));
+  public async findAndCountAllTasks(): Promise<{
+    count: number;
+    tasks: Task[];
+  }> {
+    const { count, rows: taskModels } = await this.taskModel.findAndCountAll();
+    const tasks = taskModels.map((taskModel) =>
+      this.taskMapper.toDomain(taskModel),
+    );
+    return {
+      count,
+      tasks,
+    };
   }
 
   public async findByTaskId(taskId: TaskId): Promise<[boolean, Task?]> {

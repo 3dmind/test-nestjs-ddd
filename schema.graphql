@@ -8,6 +8,11 @@ type ActiveTasksDto {
   tasks: [TaskDto!]
 }
 
+type AllTasksDto {
+  count: Int!
+  tasks: [TaskDto!]!
+}
+
 type ArchivedTasksDto {
   count: Int!
   tasks: [TaskDto!]
@@ -41,7 +46,7 @@ input NoteTaskDto {
 
 type Query {
   activeTasks: ActiveTasksDto!
-  tasks: [TaskDto!]!
+  allTasks: AllTasksDto!
   archivedTasks: ArchivedTasksDto!
 }
 
