@@ -87,3 +87,14 @@ mutation DiscardTask($id: String!) {
     discardedAt
   }
 }
+
+mutation DiscardAllArchivedTasks {
+  discardAllArchivedTasks {
+    count
+    tasks {
+      taskId
+      isArchived
+      isDiscarded
+    }
+  }
+}
