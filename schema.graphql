@@ -22,6 +22,11 @@ input ArchiveTaskDto {
   taskId: String!
 }
 
+type DiscardAllArchivedTasksDto {
+  count: Int!
+  tasks: [TaskDto!]
+}
+
 input DiscardTaskDto {
   taskId: String!
 }
@@ -33,6 +38,7 @@ input EditTaskDto {
 
 type Mutation {
   archiveTask(input: ArchiveTaskDto!): TaskDto!
+  discardAllArchivedTasks: DiscardAllArchivedTasksDto!
   discardTask(input: DiscardTaskDto!): TaskDto!
   editTask(input: EditTaskDto!): TaskDto!
   noteTask(input: NoteTaskDto!): TaskDto!
