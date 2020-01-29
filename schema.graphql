@@ -3,7 +3,12 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type ActiveTasksDto {
+type AllActiveTasksDto {
+  count: Int!
+  tasks: [TaskDto!]
+}
+
+type AllArchivedTasksDto {
   count: Int!
   tasks: [TaskDto!]
 }
@@ -11,11 +16,6 @@ type ActiveTasksDto {
 type AllTasksDto {
   count: Int!
   tasks: [TaskDto!]!
-}
-
-type ArchivedTasksDto {
-  count: Int!
-  tasks: [TaskDto!]
 }
 
 input ArchiveTaskDto {
@@ -51,9 +51,9 @@ input NoteTaskDto {
 }
 
 type Query {
-  activeTasks: ActiveTasksDto!
+  allActiveTasks: AllActiveTasksDto!
+  allArchivedTasks: AllArchivedTasksDto!
   allTasks: AllTasksDto!
-  archivedTasks: ArchivedTasksDto!
 }
 
 input ResumeTaskDto {

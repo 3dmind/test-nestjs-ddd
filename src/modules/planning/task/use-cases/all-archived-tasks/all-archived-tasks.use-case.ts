@@ -12,23 +12,23 @@ import { TaskRepository } from '../../task.repository';
 
 interface UseCaseResult {
   count: number;
-  activeTasks: Task[];
+  archivedTasks: Task[];
 }
 
 type Response = Either<GenericAppErrors.UnexpectedError, Result<UseCaseResult>>;
 
 @Injectable()
-export class ActiveTasksUseCase implements UseCase<void, Response> {
+export class AllArchivedTasksUseCase implements UseCase<void, Response> {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   public async execute(): Promise<Response> {
     try {
       const {
         count,
-        activeTasks,
-      } = await this.taskRepository.findAndCountActiveTasks();
+        archivedTasks,
+      } = await this.taskRepository.findAndCountArchivedTasks();
       return eitherRight(
-        Result.ok<UseCaseResult>({ count, activeTasks }),
+        Result.ok<UseCaseResult>({ count, archivedTasks }),
       );
     } catch (error) {
       return eitherLeft(new GenericAppErrors.UnexpectedError(error));

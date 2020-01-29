@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { taskProviders } from './task.providers';
-import { activeTasksProviders } from './use-cases/active-tasks';
+import { allActiveTasksProviders } from './use-cases/all-active-tasks';
+import { allArchivedTasksProviders } from './use-cases/all-archived-tasks';
 import { allTasksProviders } from './use-cases/all-tasks';
 import { archiveTaskProviders } from './use-cases/archive-task';
-import { archivedTasksProviders } from './use-cases/archived-tasks';
 import { discardAllArchivedTasksProviders } from './use-cases/discard-all-archived-tasks';
 import { discardTaskProviders } from './use-cases/discard-task';
 import { editTaskProviders } from './use-cases/edit-task';
@@ -14,10 +14,10 @@ import { tickOffTaskProviders } from './use-cases/tick-off-task';
 @Module({
   providers: [
     ...taskProviders,
-    ...activeTasksProviders,
+    ...allActiveTasksProviders,
+    ...allArchivedTasksProviders,
     ...allTasksProviders,
     ...archiveTaskProviders,
-    ...archivedTasksProviders,
     ...discardAllArchivedTasksProviders,
     ...discardTaskProviders,
     ...editTaskProviders,

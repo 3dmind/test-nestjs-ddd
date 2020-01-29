@@ -2,11 +2,11 @@ import { Field, Int, ObjectType } from 'type-graphql';
 import { TaskDto } from '../../task.dto';
 
 @ObjectType()
-export class ActiveTasksDto {
+export class AllActiveTasksDto {
   @Field(() => Int)
   count: number;
 
-  @Field((type) => [TaskDto], {
+  @Field(() => [TaskDto], {
     nullable: true,
   })
   tasks?: TaskDto[];

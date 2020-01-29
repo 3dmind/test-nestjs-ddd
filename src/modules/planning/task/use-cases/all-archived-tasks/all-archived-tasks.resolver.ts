@@ -2,21 +2,21 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../../../core/infrastructure';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
-import { ArchivedTasksDto } from './archived-tasks.dto';
-import { ArchivedTasksUseCase } from './archived-tasks.usecase';
+import { AllArchivedTasksDto } from './all-archived-tasks.dto';
+import { AllArchivedTasksUseCase } from './all-archived-tasks.use-case';
 
-@Resolver((of) => TaskDto)
-export class ArchivedTasksResolver extends BaseResolver {
+@Resolver(() => TaskDto)
+export class AllArchivedTasksResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
-    private readonly archivedTasksUseCase: ArchivedTasksUseCase,
+    private readonly allArchivedTasksUseCase: AllArchivedTasksUseCase,
   ) {
     super();
   }
 
-  @Query((returns) => ArchivedTasksDto)
-  public async archivedTasks(): Promise<ArchivedTasksDto> {
-    const response = await this.archivedTasksUseCase.execute();
+  @Query(() => AllArchivedTasksDto)
+  public async allArchivedTasks(): Promise<AllArchivedTasksDto> {
+    const response = await this.allArchivedTasksUseCase.execute();
     if (response.isLeft()) {
       const result = response.result;
       this.fail(result.error.message);

@@ -2,20 +2,20 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { BaseResolver } from '../../../../../core/infrastructure';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
-import { ActiveTasksDto } from './active-tasks.dto';
-import { ActiveTasksUseCase } from './active-tasks.usecase';
+import { AllActiveTasksDto } from './all-active-tasks.dto';
+import { AllActiveTasksUseCase } from './all-active-tasks.use-case';
 
-@Resolver((of) => TaskDto)
-export class ActiveTasksResolver extends BaseResolver {
+@Resolver(() => TaskDto)
+export class AllActiveTasksResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
-    private readonly getActiveTasksUseCase: ActiveTasksUseCase,
+    private readonly getActiveTasksUseCase: AllActiveTasksUseCase,
   ) {
     super();
   }
 
-  @Query((returns) => ActiveTasksDto)
-  public async activeTasks(): Promise<ActiveTasksDto> {
+  @Query(() => AllActiveTasksDto)
+  public async allActiveTasks(): Promise<AllActiveTasksDto> {
     const response = await this.getActiveTasksUseCase.execute();
     if (response.isLeft()) {
       const result = response.result;
