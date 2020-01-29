@@ -22,10 +22,10 @@ export class DiscardAllArchivedTasksResolver extends BaseResolver {
       this.fail(result.error.message);
     }
     if (response.isRight()) {
-      const { count, archivedTasks } = response.result.value;
+      const { count, discardedTasks } = response.result.value;
       return {
         count,
-        tasks: archivedTasks.map((task) => this.taskMapper.toDTO(task)),
+        tasks: discardedTasks.map((task) => this.taskMapper.toDTO(task)),
       };
     }
   }
