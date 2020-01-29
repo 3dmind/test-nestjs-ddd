@@ -3,7 +3,12 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type ActiveTasksDto {
+type AllActiveTasksDto {
+  count: Int!
+  tasks: [TaskDto!]
+}
+
+type AllArchivedTasksDto {
   count: Int!
   tasks: [TaskDto!]
 }
@@ -13,13 +18,13 @@ type AllTasksDto {
   tasks: [TaskDto!]!
 }
 
-type ArchivedTasksDto {
-  count: Int!
-  tasks: [TaskDto!]
-}
-
 input ArchiveTaskDto {
   taskId: String!
+}
+
+type DiscardAllArchivedTasksDto {
+  count: Int!
+  tasks: [TaskDto!]
 }
 
 input DiscardTaskDto {
@@ -33,6 +38,7 @@ input EditTaskDto {
 
 type Mutation {
   archiveTask(input: ArchiveTaskDto!): TaskDto!
+  discardAllArchivedTasks: DiscardAllArchivedTasksDto!
   discardTask(input: DiscardTaskDto!): TaskDto!
   editTask(input: EditTaskDto!): TaskDto!
   noteTask(input: NoteTaskDto!): TaskDto!
@@ -45,9 +51,9 @@ input NoteTaskDto {
 }
 
 type Query {
-  activeTasks: ActiveTasksDto!
+  allActiveTasks: AllActiveTasksDto!
+  allArchivedTasks: AllArchivedTasksDto!
   allTasks: AllTasksDto!
-  archivedTasks: ArchivedTasksDto!
 }
 
 input ResumeTaskDto {
