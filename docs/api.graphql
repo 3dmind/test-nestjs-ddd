@@ -16,8 +16,8 @@ query AllTasks {
   }
 }
 
-query ActiveTasks {
-  activeTasks {
+query AllActiveTasks {
+  allActiveTasks {
     count
     tasks {
       taskId
@@ -28,8 +28,8 @@ query ActiveTasks {
   }
 }
 
-query ArchivedTasks {
-  archivedTasks {
+query AllArchivedTasks {
+  allArchivedTasks {
     count
     tasks {
       taskId
@@ -59,6 +59,7 @@ mutation EditTask($id: String!, $newDescription: String!) {
 mutation TickOffTask($id: String!) {
   tickOffTask(input: { taskId: $id }) {
     taskId
+    description
     isTickedOff
     tickedOffAt
   }
@@ -67,6 +68,7 @@ mutation TickOffTask($id: String!) {
 mutation ResumeTask($id: String!) {
   resumeTask(input: { taskId: $id }) {
     taskId
+    description
     isTickedOff
     resumedAt
   }
@@ -75,6 +77,7 @@ mutation ResumeTask($id: String!) {
 mutation ArchiveTask($id: String!) {
   archiveTask(input: { taskId: $id }) {
     taskId
+    description
     isArchived
     archivedAt
   }
@@ -83,6 +86,7 @@ mutation ArchiveTask($id: String!) {
 mutation DiscardTask($id: String!) {
   discardTask(input: { taskId: $id }) {
     taskId
+    description
     isDiscarded
     discardedAt
   }
