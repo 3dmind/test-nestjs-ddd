@@ -4,9 +4,9 @@ import { GenericAppErrors } from '../../../../../core/logic';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
 import { NoteTaskDto } from './note-task.dto';
-import { NoteTaskUseCase } from './note-task.usecase';
+import { NoteTaskUseCase } from './note-task.use-case';
 
-@Resolver((of) => TaskDto)
+@Resolver(() => TaskDto)
 export class NoteTaskResolver extends BaseResolver {
   constructor(
     private readonly taskMapper: TaskMapper,
@@ -15,7 +15,7 @@ export class NoteTaskResolver extends BaseResolver {
     super();
   }
 
-  @Mutation((returns) => TaskDto)
+  @Mutation(() => TaskDto)
   public async noteTask(@Args('input') args: NoteTaskDto): Promise<TaskDto> {
     const response = await this.noteTaskUseCase.execute(args);
     if (response.isLeft()) {

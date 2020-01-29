@@ -3,7 +3,7 @@ import { BaseResolver } from '../../../../../core/infrastructure';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
 import { DiscardAllArchivedTasksDto } from './discard-all-archived-tasks.dto';
-import { DiscardAllArchivedTasksUseCase } from './discard-all-archived-tasks.usecase';
+import { DiscardAllArchivedTasksUseCase } from './discard-all-archived-tasks.use-case';
 
 @Resolver(() => TaskDto)
 export class DiscardAllArchivedTasksResolver extends BaseResolver {

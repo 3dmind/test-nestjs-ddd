@@ -3,7 +3,7 @@ import { BaseResolver } from '../../../../../core/infrastructure';
 import { TaskDto } from '../../task.dto';
 import { TaskMapper } from '../../task.mapper';
 import { AllTasksDto } from './all-tasks.dto';
-import { AllTasksUseCase } from './all-tasks.usecase';
+import { AllTasksUseCase } from './all-tasks.use-case';
 
 @Resolver(() => TaskDto)
 export class AllTasksResolver extends BaseResolver {

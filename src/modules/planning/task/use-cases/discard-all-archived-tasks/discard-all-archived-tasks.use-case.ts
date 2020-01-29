@@ -9,7 +9,7 @@ import {
 } from '../../../../../core/logic';
 import { Task } from '../../domain';
 import { TaskRepository } from '../../task.repository';
-import { ArchivedTasksUseCase } from '../archived-tasks/archived-tasks.usecase';
+import { AllArchivedTasksUseCase } from '../all-archived-tasks/all-archived-tasks.use-case';
 import { DiscardAllArchivedTasksErrors } from './discard-all-archived-tasks.errors';
 
 interface UseCaseResult {
@@ -26,7 +26,7 @@ type Response = Either<
 @Injectable()
 export class DiscardAllArchivedTasksUseCase implements UseCase<void, Response> {
   constructor(
-    private readonly archivedTasksUseCase: ArchivedTasksUseCase,
+    private readonly archivedTasksUseCase: AllArchivedTasksUseCase,
     private readonly taskRepository: TaskRepository,
   ) {}
 
